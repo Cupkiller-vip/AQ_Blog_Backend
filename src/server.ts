@@ -1,13 +1,33 @@
-import Koa from "koa"
-import cors from "@koa/cors"
-import koaBody from "koa-body"
+import Koa from "koa";
+import cors from "@koa/cors";
+import koaBody from "koa-body";
 import router from "./router";
+import { DataSource, Entity } from "typeorm";
 
 const app = new Koa();
 
-app.use(cors())
-app.use(koaBody())
+const AppDataSource = new DataSource({
+  type: "mysql",
+  host: "localhost",
+  port: 3306,
+  username: "root",
+  password: "",
+  database: "koa",
+  synchronize: true,
+  entities: ["src/entity/*.ts"],
+});
 
-app.use(router.routes).use(router.allowedMethods())
+AppDataSource.initialize()
+  .then(() => {
+    console.log("Connected to the database successfully");
+  })
+  .catch(() => {
+    console.log("Connection to the database failed");
+  });
 
-app.listen(9000)
+app.use(cors());
+app.use(koaBody());
+
+app.use(router.routes).use(router.allowedMethods());
+
+app.listen(9000);
