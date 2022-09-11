@@ -1,9 +1,9 @@
-import Router from "@koa/router"
+import Router from "@koa/router";
 
-import AuthController from "./controller/auth"
+import AuthController from "./controller/auth";
 
-const router = new Router()
+const router = new Router();
 
-router.post('/api/auth/login', AuthController.login)
+router.post("/api/auth/login", AuthController.login);
 
 export default router;
