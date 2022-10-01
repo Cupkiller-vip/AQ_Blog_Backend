@@ -19,7 +19,7 @@ export default class AuthController {
       ctx.body = { message: "用户名不存在" };
     } else if (user.password === ctx.request.body.password) {
       ctx.status = 200;
-      ctx.body = { token: jwt.sign({ id: user.id }, JWT_SECRET) };
+      ctx.body = { token: jwt.sign({ id: user.user_id }, JWT_SECRET) };
     } else {
       ctx.status = 401;
       ctx.body = { message: "密码错误" };

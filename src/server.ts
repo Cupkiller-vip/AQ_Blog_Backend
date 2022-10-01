@@ -3,9 +3,7 @@ import cors from "@koa/cors";
 import koaBody from "koa-body";
 import router from "./router";
 import { DataSource } from "typeorm";
-import jwt from "koa-jwt";
 import "reflect-metadata"
-import { JWT_SECRET } from "./constants";
 
 const app = new Koa();
 
@@ -32,7 +30,5 @@ app.use(cors());
 app.use(koaBody());
 
 app.use(router.routes()).use(router.allowedMethods());
-app.use(jwt({secret: JWT_SECRET}).unless({ method: "get"}))
-
 
 app.listen(9000);
